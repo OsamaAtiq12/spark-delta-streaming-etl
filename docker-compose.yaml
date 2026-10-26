@@ -1,0 +1,30 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: 25280091_osama
+    user: root
+    command: >
+      /bin/bash -c "mkdir -p /var/opt/mssql/data /var/opt/mssql/v2 /var/opt/mssql/v3 /var/opt/mssql/v4
+      && chown -R mssql:mssql /var/opt/mssql/data /var/opt/mssql/v2 /var/opt/mssql/v3 /var/opt/mssql/v4
+      && exec /opt/mssql/bin/sqlservr"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Lahore123@
+      - MSSQL_PID=Developer
+      - MSSQL_TCP_PORT=1433
+    ports:
+      - "1433:1433"
+    volumes:
+      - v1:/var/opt/mssql/data
+      - v2:/var/opt/mssql/v2
+      - v3:/var/opt/mssql/v3
+      - v4:/var/opt/mssql/v4
+      - ./25280091.sql:/var/opt/mssql/scripts/25280091.sql:ro
+
+volumes:
+  v1:
+  v2:
+  v3:
+  v4:
+
+ 
